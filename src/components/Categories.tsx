@@ -1,15 +1,15 @@
 import React from "react";
-import { Category, Item } from "../models";
+import { Category, Lynk } from "../models";
 
 interface Props {
-  lynks: Category[];
+  arrOfCategories: Category[];
 }
 
-export const Categories: React.FC<Props> = ({ lynks }) => {
-  const displayItems = (item: Item) => {
+export const Categories: React.FC<Props> = ({ arrOfCategories }) => {
+  const displayItems = (lynk: Lynk) => {
     return (
       <div>
-        <a href={item.link}>{item.title}</a>
+        <a href={lynk.link}>{lynk.title}</a>
       </div>
     );
   };
@@ -23,7 +23,7 @@ export const Categories: React.FC<Props> = ({ lynks }) => {
     );
   };
 
-  return <div>{lynks.map(displayCategories)}</div>;
+  return <div>{arrOfCategories.map(displayCategories)}</div>;
 };
 
 export default Categories;
