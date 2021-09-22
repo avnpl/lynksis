@@ -5,5 +5,5 @@ export interface Lynk {
 
 export interface Category {
   name: string;
-  items: Array<Lynk>;
+  lynks: Array<Lynk>;
 }

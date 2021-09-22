@@ -11,7 +11,7 @@ const testData: State = {
   arrOfCategories: [
     {
       name: "TimePass",
-      items: [
+      lynks: [
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
@@ -24,7 +24,7 @@ const testData: State = {
     },
     {
       name: "Study",
-      items: [
+      lynks: [
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
@@ -48,15 +48,15 @@ export const Mains: React.FC = () => {
     const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
 
     if (result !== -1) {
-      let tempArrOfLynks = tempArrOfCats[result].items;
+      let tempArrOfLynks = tempArrOfCats[result].lynks;
       tempArrOfLynks.push(lynk);
-      tempArrOfCats[result].items = tempArrOfLynks;
+      tempArrOfCats[result].lynks = tempArrOfLynks;
       setData({ arrOfCategories: tempArrOfCats });
       return;
     } else {
       let newCat: Category = {
         name: cat,
-        items: [lynk],
+        lynks: [lynk],
       };
       tempArrOfCats.push(newCat);
       setData({ arrOfCategories: tempArrOfCats });
@@ -64,9 +64,47 @@ export const Mains: React.FC = () => {
     }
   };
 
+  const removeLynk = (cat: string, lynk: Lynk) => {
+    let tempArrOfCats = data.arrOfCategories;
+    const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
+
+    if (result === -1) {
+      return "Category Not Found";
+    } else {
+      let tempArrOfLynks = tempArrOfCats[result].lynks;
+      const lynkToBeRemoved = tempArrOfLynks.findIndex(
+        (tempLynk) => tempLynk === lynk
+      );
+      if (lynkToBeRemoved === -1) {
+        return "Lynk Not Found";
+      } else {
+        tempArrOfLynks.splice(lynkToBeRemoved, 1);
+        tempArrOfCats[result].lynks = tempArrOfLynks;
+        setData({ arrOfCategories: tempArrOfCats });
+      }
+    }
+  };
+
+  const removeCat = (cat: string) => {
+    let tempArrOfCats = data.arrOfCategories;
+    const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
+
+    if (result === -1) {
+      return "Category Not Found";
+    } else {
+      tempArrOfCats.splice(result, 1);
+      setData({ arrOfCategories: tempArrOfCats });
+      console.log(result);
+    }
+  };
+
   return (
     <div>
-      <Categories arrOfCategories={data.arrOfCategories} />
+      <Categories
+        arrOfCategories={data.arrOfCategories}
+        removeLynk={removeLynk}
+        removeCat={removeCat}
+      />
       <Add addLynk={addLynk} />
     </div>
   );
