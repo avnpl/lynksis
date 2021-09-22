@@ -94,7 +94,6 @@ export const Mains: React.FC = () => {
     } else {
       tempArrOfCats.splice(result, 1);
       setData({ arrOfCategories: tempArrOfCats });
-      console.log(result);
     }
   };
 
