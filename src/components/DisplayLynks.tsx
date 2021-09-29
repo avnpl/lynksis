@@ -14,7 +14,9 @@ export const DisplayLynks: React.FC<Props> = ({
 }) => {
   return (
     <li>
-      <a href={lynk.link}>{lynk.title}</a>
+      <a href={lynk.link} rel='noreferrer' target='_blank'>
+        {lynk.title}
+      </a>
       <button
         onClick={() => {
           removeLynk(catName, lynk);
@@ -22,6 +24,9 @@ export const DisplayLynks: React.FC<Props> = ({
       >
         Delete
       </button>
+      <a href={lynk.link} rel='noreferrer' target='_blank'>
+        <button>New Tab</button>
+      </a>
     </li>
   );
 };
