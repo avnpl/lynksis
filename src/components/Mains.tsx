@@ -10,7 +10,7 @@ interface State {
 const testData: State = {
   arrOfCategories: [
     {
-      name: "TimePass",
+      name: "Chill",
       lynks: [
         {
           title: "Youtube",
