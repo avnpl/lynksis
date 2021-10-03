@@ -14,7 +14,7 @@ export const DisplayLynks: React.FC<Props> = ({
 }) => {
   return (
     <li>
-      <a href={lynk.link} rel='noreferrer' target='_blank'>
+      <a href={lynk.link} rel='noreferrer'>
         {lynk.title}
       </a>
       <button
