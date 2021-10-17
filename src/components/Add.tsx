@@ -7,11 +7,13 @@ interface Props {
 
 export const Add: React.FC<Props> = ({ addLynk }) => {
   const [name, setCatName] = useState("");
-  const [title, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
 
   const addLynkButtonPressed = () => {
     addLynk(name, { link: link, title: title });
+    setTitle("");
+    setLink("");
   };
 
   return (
@@ -33,7 +35,7 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
           id='title'
           value={title}
           onChange={(e) => {
-            setName(e.target.value);
+            setTitle(e.target.value);
           }}
         />
         <label htmlFor='link'>Enter Link : </label>
