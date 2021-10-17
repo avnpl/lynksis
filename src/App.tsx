@@ -1,13 +1,14 @@
 import React from "react";
-import Mains from "./components/Mains";
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Mains />
-    </div>
+    <BrowserRouter>
+      <Route path='/' exact component={Home} />
+      <Route path='/login' exact component={Login} />
+    </BrowserRouter>
   );
 }
 
