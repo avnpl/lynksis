@@ -1,19 +1,19 @@
 import React from "react";
-import { Category, Lynk } from "../models";
+import { CategoryInterface, Lynk } from "../models";
 import DisplayLynks from "./DisplayLynks";
 
 interface Props {
-  arrOfCategories: Category[];
+  category: CategoryInterface;
   removeLynk: (cat: string, lynk: Lynk) => string | undefined;
   removeCat: (cat: string) => string | undefined;
 }
 
-export const Categories: React.FC<Props> = ({
-  arrOfCategories,
+export const Category: React.FC<Props> = ({
+  category,
   removeCat,
   removeLynk,
 }) => {
-  const displayCategories = (category: Category) => {
+  const displayCategory = (category: CategoryInterface) => {
     return (
       <div>
         <h2>{category.name}</h2>
@@ -37,7 +37,7 @@ export const Categories: React.FC<Props> = ({
     );
   };
 
-  return <div>{arrOfCategories.map(displayCategories)}</div>;
+  return <div>{displayCategory(category)}</div>;
 };
 
-export default Categories;
+export default Category;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Category, Lynk } from "../models";
+import { CategoryInterface, Lynk } from "../models";
 import Add from "./Add";
-import Categories from "./Categories";
+import Category from "./Category";
 
 interface State {
-  arrOfCategories: Category[];
+  arrOfCategories: CategoryInterface[];
 }
 
 const testData: State = {
@@ -54,7 +54,7 @@ export const Mains: React.FC = () => {
       setData({ arrOfCategories: tempArrOfCats });
       return;
     } else {
-      let newCat: Category = {
+      let newCat: CategoryInterface = {
         name: cat,
         lynks: [lynk],
       };
@@ -99,11 +99,15 @@ export const Mains: React.FC = () => {
 
   return (
     <div>
-      <Categories
-        arrOfCategories={data.arrOfCategories}
-        removeLynk={removeLynk}
-        removeCat={removeCat}
-      />
+      {data.arrOfCategories.map((category) => {
+        return (
+          <Category
+            category={category}
+            removeCat={removeCat}
+            removeLynk={removeLynk}
+          />
+        );
+      })}
       <Add addLynk={addLynk} />
     </div>
   );

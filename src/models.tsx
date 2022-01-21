@@ -3,7 +3,7 @@ export interface Lynk {
   link: string;
 }
 
-export interface Category {
+export interface CategoryInterface {
   name: string;
   lynks: Array<Lynk>;
 }
