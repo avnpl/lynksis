@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoryInterface, Lynk } from "../models";
+import { CategoryInterface, Lynk } from "../utils/models";
 import DisplayLynks from "./DisplayLynks";
 
 interface Props {

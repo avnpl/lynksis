@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { CategoryInterface, Lynk } from "../models";
+import { getData } from "../utils/fakeData";
+import { CategoryInterface, Lynk } from "../utils/models";
 import Add from "./Add";
 import Category from "./Category";
 
@@ -7,38 +8,8 @@ interface State {
   arrOfCategories: CategoryInterface[];
 }
 
-const testData: State = {
-  arrOfCategories: [
-    {
-      name: "Chill",
-      lynks: [
-        {
-          title: "Youtube",
-          link: "https://www.youtube.com/",
-        },
-        {
-          title: "Netflix",
-          link: "https://www.netflix.com",
-        },
-      ],
-    },
-    {
-      name: "Study",
-      lynks: [
-        {
-          title: "Youtube",
-          link: "https://www.youtube.com/",
-        },
-        {
-          title: "GFG",
-          link: "https://www.geeksforgeeks.com",
-        },
-      ],
-    },
-  ],
-};
-
 export const Mains: React.FC = () => {
+  const testData = getData();
   const [data, setData] = useState<State>({
     arrOfCategories: testData.arrOfCategories,
   });

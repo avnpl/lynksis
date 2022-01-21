@@ -1,5 +1,5 @@
 import React from "react";
-import { Lynk } from "../models";
+import { Lynk } from "../utils/models";
 
 interface Props {
   catName: string;

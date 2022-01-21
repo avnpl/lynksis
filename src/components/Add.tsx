@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Lynk } from "../models";
+import { Lynk } from "../utils/models";
 
 interface Props {
   addLynk: (categoryName: string, lynk: Lynk) => void;
