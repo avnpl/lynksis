@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import { UserInterface } from "./utils/models";
 
 function App() {
-  const [user, setUser] = useState<UserInterface | null>();
+  const [user, setUser] = useState<UserInterface | null>(null);
 
   return (
     <BrowserRouter>

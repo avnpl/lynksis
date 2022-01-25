@@ -12,12 +12,12 @@ const fakeData: State = {
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
-          id: "yt1",
+          id: "chill-youtube",
         },
         {
           title: "Netflix",
           link: "https://www.netflix.com",
-          id: "yt2",
+          id: "chill-netflix",
         },
       ],
     },
@@ -27,12 +27,12 @@ const fakeData: State = {
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
-          id: "yt2",
+          id: "study-youtube",
         },
         {
           title: "GFG",
           link: "https://www.geeksforgeeks.com",
-          id: "g1",
+          id: "study-gfg",
         },
       ],
     },
