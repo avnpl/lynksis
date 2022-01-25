@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Lynk } from "../utils/models";
 
 interface Props {
-  addLynk: (categoryName: string, lynk: Lynk) => void;
+  addLynk: (
+    cat: string,
+    {
+      title,
+      link,
+    }: {
+      title: string;
+      link: string;
+    }
+  ) => void;
 }
 
 export const Add: React.FC<Props> = ({ addLynk }) => {
@@ -11,7 +19,7 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
   const [link, setLink] = useState("");
 
   const addLynkButtonPressed = () => {
-    addLynk(name, { link: link, title: title });
+    addLynk(name, { link, title });
     setTitle("");
     setLink("");
   };

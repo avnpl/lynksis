@@ -1,21 +1,23 @@
 import { CategoryInterface } from "./models";
 
 type State = {
-  arrOfCategories: CategoryInterface[];
+  arrOfCats: CategoryInterface[];
 };
 
 const fakeData: State = {
-  arrOfCategories: [
+  arrOfCats: [
     {
       name: "Chill",
       lynks: [
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
+          id: "yt1",
         },
         {
           title: "Netflix",
           link: "https://www.netflix.com",
+          id: "yt2",
         },
       ],
     },
@@ -25,10 +27,12 @@ const fakeData: State = {
         {
           title: "Youtube",
           link: "https://www.youtube.com/",
+          id: "yt2",
         },
         {
           title: "GFG",
           link: "https://www.geeksforgeeks.com",
+          id: "g1",
         },
       ],
     },

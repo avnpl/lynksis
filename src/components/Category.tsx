@@ -30,6 +30,7 @@ export const Category: React.FC<Props> = ({
               catName={category.name}
               lynk={lynk}
               removeLynk={removeLynk}
+              key={lynk.id}
             />
           );
         })}

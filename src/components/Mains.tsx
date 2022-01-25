@@ -5,77 +5,91 @@ import Add from "./Add";
 import Category from "./Category";
 
 interface State {
-  arrOfCategories: CategoryInterface[];
+  arrOfCats: CategoryInterface[];
 }
 
 export const Mains: React.FC = () => {
   const testData = getData();
   const [data, setData] = useState<State>({
-    arrOfCategories: testData.arrOfCategories,
+    arrOfCats: testData.arrOfCats,
   });
 
-  const addLynk = (cat: string, lynk: Lynk) => {
-    let tempArrOfCats = data.arrOfCategories;
-    const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
+  const addLynk = (
+    cat: string,
+    { title, link }: { title: string; link: string }
+  ) => {
+    let tempCats = [...data.arrOfCats];
+    const result = tempCats.findIndex((temp) => temp.name === cat);
 
     if (result !== -1) {
-      let tempArrOfLynks = tempArrOfCats[result].lynks;
-      tempArrOfLynks.push(lynk);
-      tempArrOfCats[result].lynks = tempArrOfLynks;
-      setData({ arrOfCategories: tempArrOfCats });
+      let tempLynks = [...tempCats[result].lynks];
+      const newLynkID = `${tempCats[result].name}-${title}`.toLowerCase();
+      const newLynk: Lynk = {
+        link: link,
+        title: title,
+        id: newLynkID.split(" ").join(""),
+      };
+      tempLynks.push(newLynk);
+      tempCats[result].lynks = tempLynks;
+      setData({ arrOfCats: tempCats });
       return;
     } else {
-      let newCat: CategoryInterface = {
-        name: cat,
-        lynks: [lynk],
+      const newLynkID = `${cat}-${title}`.toLowerCase();
+      const newLynk: Lynk = {
+        link: link,
+        title: title,
+        id: newLynkID.split(" ").join(""),
       };
-      tempArrOfCats.push(newCat);
-      setData({ arrOfCategories: tempArrOfCats });
+      const newCat: CategoryInterface = {
+        name: cat,
+        lynks: [newLynk],
+      };
+      tempCats.push(newCat);
+      setData({ arrOfCats: tempCats });
       return;
     }
   };
 
   const removeLynk = (cat: string, lynk: Lynk) => {
-    let tempArrOfCats = data.arrOfCategories;
-    const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
+    let tempCats = [...data.arrOfCats];
+    const result = tempCats.findIndex((temp) => temp.name === cat);
 
     if (result === -1) {
       return "Category Not Found";
     } else {
-      let tempArrOfLynks = tempArrOfCats[result].lynks;
-      const lynkToBeRemoved = tempArrOfLynks.findIndex(
-        (tempLynk) => tempLynk === lynk
-      );
-      if (lynkToBeRemoved === -1) {
+      let tempLynks = [...tempCats[result].lynks];
+      const removePos = tempLynks.findIndex((tempLynk) => tempLynk === lynk);
+      if (removePos === -1) {
         return "Lynk Not Found";
       } else {
-        tempArrOfLynks.splice(lynkToBeRemoved, 1);
-        tempArrOfCats[result].lynks = tempArrOfLynks;
-        setData({ arrOfCategories: tempArrOfCats });
+        tempLynks.splice(removePos, 1);
+        tempCats[result].lynks = tempLynks;
+        setData({ arrOfCats: tempCats });
       }
     }
   };
 
   const removeCat = (cat: string) => {
-    let tempArrOfCats = data.arrOfCategories;
-    const result = tempArrOfCats.findIndex((temp) => temp.name === cat);
+    let tempCats = [...data.arrOfCats];
+    const result = tempCats.findIndex((temp) => temp.name === cat);
 
     if (result === -1) {
       return "Category Not Found";
     } else {
-      tempArrOfCats.splice(result, 1);
-      setData({ arrOfCategories: tempArrOfCats });
+      tempCats.splice(result, 1);
+      setData({ arrOfCats: tempCats });
     }
   };
 
   return (
     <div>
-      {data.arrOfCategories.map((category) => {
+      {data.arrOfCats.map((category) => {
         return (
           <Category
             category={category}
             removeCat={removeCat}
             removeLynk={removeLynk}
+            key={category.name.toLowerCase()}
           />
         );
       })}
