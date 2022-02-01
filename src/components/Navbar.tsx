@@ -9,6 +9,8 @@ export const Navbar: React.FC = () => {
       <Link to='/login'>Login</Link>
       <br />
       <Link to='/'>Home</Link>
+      <br />
+      <Link to='/register'>Register</Link>
       <Outlet />
     </header>
   );
