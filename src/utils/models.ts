@@ -15,3 +15,8 @@ export interface UserInterface {
   password: string;
   categories: CategoryInterface;
 }
+
+export interface MyError {
+  message: string;
+  type: string;
+}
