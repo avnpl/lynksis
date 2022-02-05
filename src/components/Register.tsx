@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
-interface Props {
-  registerUser: (username: string, email: string, password: string) => void;
-}
-
-const Register: React.FC<Props> = ({ registerUser }) => {
+const Register: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    registerUser(username, email, password);
+  const handleRegister = (
+    username: string,
+    email: string,
+    password: string
+  ) => {
+    //todo
+    //api call and logging in user
+    console.log(username, email, password);
     setUsername("");
     setEmail("");
     setPassword("");
@@ -20,7 +21,7 @@ const Register: React.FC<Props> = ({ registerUser }) => {
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={handleRegister}>
+      <form>
         <label htmlFor='username'>Enter Username</label>
         <input
           type='text'
@@ -42,7 +43,14 @@ const Register: React.FC<Props> = ({ registerUser }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type='submit' value='Register' />
+        <input
+          type='button'
+          value='Register'
+          onClick={(e) => {
+            e.preventDefault();
+            handleRegister(username, email, password);
+          }}
+        />
       </form>
     </div>
   );
