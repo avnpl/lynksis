@@ -1,11 +1,12 @@
 import "dotenv/config";
-import React, { useState } from "react";
+import * as jwt from "jsonwebtoken";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { Mains } from "./components/Mains";
 import { Navbar } from "./components/Navbar";
 import Register from "./components/Register";
-import { MyError, UserInterface } from "./utils/models";
+import { MyError, NewJWTPayload, UserInterface } from "./utils/models";
 
 function App() {
   const [user, setUser] = useState<UserInterface | null>(null);
@@ -66,6 +67,24 @@ function App() {
         });
       });
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      jwt.verify(
+        token,
+        process.env.REACT_APP_SECRET_KEY as string,
+        (err, data) => {
+          if (data) {
+            loginUser(
+              (data as NewJWTPayload).username,
+              (data as NewJWTPayload).password
+            );
+          }
+        }
+      );
+    }
+  }, []);
 
   return (
     <BrowserRouter>

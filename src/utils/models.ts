@@ -1,3 +1,5 @@
+import { JwtPayload } from "jsonwebtoken";
+
 export interface Lynk {
   title: string;
   link: string;
@@ -19,4 +21,10 @@ export interface UserInterface {
 export interface MyError {
   message: string;
   type: string;
+}
+
+export interface NewJWTPayload extends JwtPayload {
+  username: string;
+  email: string;
+  password: string;
 }
