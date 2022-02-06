@@ -1,6 +1,6 @@
 import "dotenv/config";
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { Mains } from "./components/Mains";
 import { Navbar } from "./components/Navbar";
@@ -25,10 +25,7 @@ function App() {
         password: password,
       }),
     })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         setUser(data.user);
         localStorage.setItem("token", data.token);
@@ -43,15 +40,17 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
-        <Route path='/' element={<Navbar />}>
-          <Route index element={<Mains />} />
-          <Route path='/login' element={<Login />} />
+        {!user && <Route path='/login' element={<Login />} />}
+        {!user && (
           <Route
             path='/register'
             element={<Register registerUser={registerUser} />}
           />
-        </Route>
+        )}
+        {user && <Route path='/' element={<Mains />} />}
+        <Route path='*' element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>
     </BrowserRouter>
   );
