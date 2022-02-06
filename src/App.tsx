@@ -38,11 +38,42 @@ function App() {
       );
   };
 
+  const loginUser = (username: string, password: string) => {
+    const url = `${process.env.REACT_APP_DEV_URL}/login`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+      })
+      .catch((err) => {
+        setError({
+          message: "Invalid username or Password",
+          type: "InvalidCredentialsError",
+        });
+      });
+  };
+
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        {!user && <Route path='/login' element={<Login />} />}
+        {!user && (
+          <Route path='/login' element={<Login loginUser={loginUser} />} />
+        )}
         {!user && (
           <Route
             path='/register'

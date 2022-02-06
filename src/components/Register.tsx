@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   registerUser: (username: string, email: string, password: string) => void;
@@ -37,13 +38,21 @@ const Register: React.FC<Props> = ({ registerUser }) => {
         />
         <label htmlFor='password'>Enter Password</label>
         <input
-          type='text'
+          type='password'
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input type='submit' value='Register' />
       </form>
+      <div>
+        <p>
+          Already have an account?{" "}
+          <span>
+            <Link to='/login'>Login Now</Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Login: React.FC = () => {
+interface Props {
+  loginUser: (username: string, password: string) => void;
+}
+
+const Login: React.FC<Props> = ({ loginUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginButtonPressed = (username: String, password: String) => {
-    //todo
-    //api call and logging in user
-    console.log(username, password);
+  const handleLogin = (username: string, password: string) => {
+    loginUser(username, password);
     setUsername("");
     setPassword("");
   };
@@ -15,7 +18,12 @@ const Login: React.FC = () => {
   return (
     <div>
       <h2>Login</h2>
-      <form action=''>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin(username, password);
+        }}
+      >
         <label htmlFor='username'>Enter Username</label>
         <input
           type='text'
@@ -25,20 +33,21 @@ const Login: React.FC = () => {
         />
         <label htmlFor='password'>Enter Password</label>
         <input
-          type='text'
+          type='password'
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
-          type='button'
-          value='Login'
-          onClick={(e) => {
-            e.preventDefault();
-            loginButtonPressed(username, password);
-          }}
-        />
+        <input type='submit' value='Login' />
       </form>
+      <div>
+        <p>
+          Don't have an account?
+          <span>
+            <Link to='/register'>Register Now</Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };
