@@ -68,6 +68,13 @@ function App() {
       });
   };
 
+  const logoutUser = () => {
+    localStorage.clear();
+    setUser(null);
+  };
+
+  const isLoggedIn = () => !!user;
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -88,7 +95,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar logoutUser={logoutUser} showLogout={isLoggedIn()} />
       <Routes>
         {!user && (
           <Route path='/login' element={<Login loginUser={loginUser} />} />
