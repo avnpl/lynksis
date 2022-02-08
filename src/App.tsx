@@ -12,6 +12,16 @@ function App() {
   const [user, setUser] = useState<UserInterface | null>(null);
   const [error, setError] = useState<MyError | null>(null);
 
+  useEffect(() => {
+    if (error) {
+      const errMessage = `${error.message} (${error.type})`;
+      console.error(errMessage);
+      alert(error.message);
+      setError(null);
+    } else {
+    }
+  }, [error]);
+
   const registerUser = (username: string, email: string, password: string) => {
     const url = `${process.env.REACT_APP_DEV_URL}/register`;
 
@@ -26,17 +36,20 @@ function App() {
         password: password,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setUser(data.user);
-        localStorage.setItem("token", data.token);
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            setUser(data.user);
+            localStorage.setItem("token", data.token);
+          });
+        } else {
+          setError({
+            message: "Username or Email already in use",
+            type: "DuplicateCredentialsError",
+          });
+        }
       })
-      .catch((err) =>
-        setError({
-          message: "Username or Email already in use",
-          type: "DuplicateCredentialsError",
-        })
-      );
+      .catch((err) => console.error(err));
   };
 
   const loginUser = (username: string, password: string) => {
@@ -53,18 +66,20 @@ function App() {
       }),
     })
       .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        setUser(data.user);
-        localStorage.setItem("token", data.token);
+        if (response.ok) {
+          response.json().then((data) => {
+            setUser(data.user);
+            localStorage.setItem("token", data.token);
+          });
+        } else {
+          setError({
+            message: "Invalid username or Password",
+            type: "InvalidCredentialsError",
+          });
+        }
       })
       .catch((err) => {
-        setError({
-          message: "Invalid username or Password",
-          type: "InvalidCredentialsError",
-        });
+        console.error(err);
       });
   };
 
@@ -72,8 +87,6 @@ function App() {
     localStorage.clear();
     setUser(null);
   };
-
-  const isLoggedIn = () => !!user;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -95,7 +108,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar logoutUser={logoutUser} showLogout={isLoggedIn()} />
+      <Navbar logoutUser={logoutUser} showLogout={!!user} />
       <Routes>
         {!user && (
           <Route path='/login' element={<Login loginUser={loginUser} />} />
@@ -107,7 +120,12 @@ function App() {
           />
         )}
         {user && (
-          <Route path='/' element={<Mains user={user} setUser={setUser} />} />
+          <Route
+            path='/'
+            element={
+              <Mains user={user} setUser={setUser} setError={setError} />
+            }
+          />
         )}
         <Route path='*' element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>

@@ -1,5 +1,10 @@
 import React from "react";
-import { CategoryInterface, Lynk, UserInterface } from "../utils/models";
+import {
+  CategoryInterface,
+  Lynk,
+  MyError,
+  UserInterface,
+} from "../utils/models";
 import { updateDBData } from "../utils/updateDBData";
 import Add from "./Add";
 import Category from "./Category";
@@ -7,11 +12,12 @@ import Category from "./Category";
 interface Props {
   user: UserInterface;
   setUser: React.Dispatch<React.SetStateAction<UserInterface | null>>;
+  setError: React.Dispatch<React.SetStateAction<MyError | null>>;
 }
 
 const token = localStorage.getItem("token") as string;
 
-export const Mains: React.FC<Props> = ({ user, setUser }) => {
+export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
   const data = [...user.categories];
 
   const addLynk = async (
@@ -34,6 +40,11 @@ export const Mains: React.FC<Props> = ({ user, setUser }) => {
       const test = await updateDBData(tempCats, token);
       if (test) {
         setUser({ ...user, categories: test });
+      } else {
+        setError({
+          message: "Unknown error has occurred",
+          type: "UnknownErrorMains41",
+        });
       }
       return;
     } else {
@@ -50,6 +61,11 @@ export const Mains: React.FC<Props> = ({ user, setUser }) => {
       if (test) {
         console.log(test);
         setUser({ ...user, categories: test });
+      } else {
+        setError({
+          message: "Unknown error has occurred",
+          type: "UnknownErrorMains57",
+        });
       }
       return;
     }
@@ -72,6 +88,11 @@ export const Mains: React.FC<Props> = ({ user, setUser }) => {
         const test = await updateDBData(tempCats, token);
         if (test) {
           setUser({ ...user, categories: test });
+        } else {
+          setError({
+            message: "Unknown error has occurred",
+            type: "UnknownErrorMains89",
+          });
         }
       }
     }
@@ -88,6 +109,11 @@ export const Mains: React.FC<Props> = ({ user, setUser }) => {
       const test = await updateDBData(tempCats, token);
       if (test) {
         setUser({ ...user, categories: test });
+      } else {
+        setError({
+          message: "Unknown Error has occurred",
+          type: "UnknownErrorMains110",
+        });
       }
     }
   };
