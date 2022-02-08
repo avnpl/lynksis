@@ -4,7 +4,7 @@ import { Lynk } from "../utils/models";
 interface Props {
   catName: string;
   lynk: Lynk;
-  removeLynk: (cat: string, lynk: Lynk) => string | undefined;
+  removeLynk: (cat: string, lynk: Lynk) => Promise<void>;
 }
 
 export const DisplayLynks: React.FC<Props> = ({

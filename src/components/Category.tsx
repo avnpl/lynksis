@@ -4,8 +4,8 @@ import DisplayLynks from "./DisplayLynks";
 
 interface Props {
   category: CategoryInterface;
-  removeLynk: (cat: string, lynk: Lynk) => string | undefined;
-  removeCat: (cat: string) => string | undefined;
+  removeLynk: (cat: string, lynk: Lynk) => Promise<void>;
+  removeCat: (cat: string) => Promise<void>;
 }
 
 export const Category: React.FC<Props> = ({
@@ -30,7 +30,7 @@ export const Category: React.FC<Props> = ({
               catName={category.name}
               lynk={lynk}
               removeLynk={removeLynk}
-              key={lynk.id}
+              key={lynk._id}
             />
           );
         })}

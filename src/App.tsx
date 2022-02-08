@@ -106,7 +106,9 @@ function App() {
             element={<Register registerUser={registerUser} />}
           />
         )}
-        {user && <Route path='/' element={<Mains />} />}
+        {user && (
+          <Route path='/' element={<Mains user={user} setUser={setUser} />} />
+        )}
         <Route path='*' element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>
     </BrowserRouter>

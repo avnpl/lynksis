@@ -1,95 +1,106 @@
-import React, { useState } from "react";
-import { getData } from "../utils/fakeData";
-import { CategoryInterface, Lynk } from "../utils/models";
+import React from "react";
+import { CategoryInterface, Lynk, UserInterface } from "../utils/models";
+import { updateDBData } from "../utils/updateDBData";
 import Add from "./Add";
 import Category from "./Category";
 
-interface State {
-  arrOfCats: CategoryInterface[];
+interface Props {
+  user: UserInterface;
+  setUser: React.Dispatch<React.SetStateAction<UserInterface | null>>;
 }
 
-export const Mains: React.FC = () => {
-  const testData = getData();
-  const [data, setData] = useState<State>({
-    arrOfCats: testData.arrOfCats,
-  });
+const token = localStorage.getItem("token") as string;
 
-  const addLynk = (
+export const Mains: React.FC<Props> = ({ user, setUser }) => {
+  const data = [...user.categories];
+
+  const addLynk = async (
     cat: string,
     { title, link }: { title: string; link: string }
   ) => {
-    let tempCats = [...data.arrOfCats];
-    const result = tempCats.findIndex((temp) => temp.name === cat);
+    let tempCats = [...data];
+    const result = tempCats.findIndex(
+      (temp) => temp.name.toLowerCase() === cat.toLowerCase()
+    );
 
     if (result !== -1) {
       let tempLynks = [...tempCats[result].lynks];
-      const newLynkID = `${tempCats[result].name}-${title}`.toLowerCase();
       const newLynk: Lynk = {
         link: link,
         title: title,
-        id: newLynkID.split(" ").join(""),
       };
       tempLynks.push(newLynk);
       tempCats[result].lynks = tempLynks;
-      setData({ arrOfCats: tempCats });
+      const test = await updateDBData(tempCats, token);
+      if (test) {
+        setUser({ ...user, categories: test });
+      }
       return;
     } else {
-      const newLynkID = `${cat}-${title}`.toLowerCase();
       const newLynk: Lynk = {
         link: link,
         title: title,
-        id: newLynkID.split(" ").join(""),
       };
       const newCat: CategoryInterface = {
         name: cat,
         lynks: [newLynk],
       };
       tempCats.push(newCat);
-      setData({ arrOfCats: tempCats });
+      const test = await updateDBData(tempCats, token);
+      if (test) {
+        console.log(test);
+        setUser({ ...user, categories: test });
+      }
       return;
     }
   };
 
-  const removeLynk = (cat: string, lynk: Lynk) => {
-    let tempCats = [...data.arrOfCats];
+  const removeLynk = async (cat: string, lynk: Lynk) => {
+    let tempCats = [...data];
     const result = tempCats.findIndex((temp) => temp.name === cat);
 
     if (result === -1) {
-      return "Category Not Found";
+      return;
     } else {
       let tempLynks = [...tempCats[result].lynks];
       const removePos = tempLynks.findIndex((tempLynk) => tempLynk === lynk);
       if (removePos === -1) {
-        return "Lynk Not Found";
+        return;
       } else {
         tempLynks.splice(removePos, 1);
         tempCats[result].lynks = tempLynks;
-        setData({ arrOfCats: tempCats });
+        const test = await updateDBData(tempCats, token);
+        if (test) {
+          setUser({ ...user, categories: test });
+        }
       }
     }
   };
 
-  const removeCat = (cat: string) => {
-    let tempCats = [...data.arrOfCats];
+  const removeCat = async (cat: string) => {
+    let tempCats = [...data];
     const result = tempCats.findIndex((temp) => temp.name === cat);
 
     if (result === -1) {
-      return "Category Not Found";
+      return;
     } else {
       tempCats.splice(result, 1);
-      setData({ arrOfCats: tempCats });
+      const test = await updateDBData(tempCats, token);
+      if (test) {
+        setUser({ ...user, categories: test });
+      }
     }
   };
 
   return (
     <div>
-      {data.arrOfCats.map((category) => {
+      {data.map((category) => {
         return (
           <Category
             category={category}
             removeCat={removeCat}
             removeLynk={removeLynk}
-            key={category.name.toLowerCase()}
+            key={category._id}
           />
         );
       })}

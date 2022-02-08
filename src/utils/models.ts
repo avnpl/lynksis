@@ -3,10 +3,11 @@ import { JwtPayload } from "jsonwebtoken";
 export interface Lynk {
   title: string;
   link: string;
-  id: string;
+  _id?: string;
 }
 
 export interface CategoryInterface {
+  _id?: string;
   name: string;
   lynks: Array<Lynk>;
 }
@@ -15,7 +16,7 @@ export interface UserInterface {
   username: string;
   email: string;
   password: string;
-  categories: CategoryInterface;
+  categories: CategoryInterface[];
 }
 
 export interface MyError {
