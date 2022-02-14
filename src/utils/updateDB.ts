@@ -1,6 +1,6 @@
-import { CategoryInterface } from "./models";
+import { CategoryInterface } from "./interfaces";
 
-export const updateDBData = async (
+export const updateDB = async (
   categories: CategoryInterface[],
   token: string
 ) => {

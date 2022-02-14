@@ -1,17 +1,13 @@
 import React from "react";
-import { Lynk } from "../utils/models";
+import { LynkInterface } from "../utils/interfaces";
 
 interface Props {
   catName: string;
-  lynk: Lynk;
-  removeLynk: (cat: string, lynk: Lynk) => Promise<void>;
+  lynk: LynkInterface;
+  removeLynk: (cat: string, lynk: LynkInterface) => Promise<void>;
 }
 
-export const DisplayLynks: React.FC<Props> = ({
-  catName,
-  lynk,
-  removeLynk,
-}) => {
+export const Lynk: React.FC<Props> = ({ catName, lynk, removeLynk }) => {
   return (
     <li>
       <a href={lynk.link} rel='noreferrer'>
@@ -31,4 +27,4 @@ export const DisplayLynks: React.FC<Props> = ({
   );
 };
 
-export default DisplayLynks;
+export default Lynk;

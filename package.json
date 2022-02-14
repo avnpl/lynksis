@@ -30,6 +30,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "back": "cd ../lynksis-backend && yarn start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

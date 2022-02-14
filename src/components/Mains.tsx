@@ -1,11 +1,11 @@
 import React from "react";
 import {
   CategoryInterface,
-  Lynk,
+  LynkInterface,
   MyError,
   UserInterface,
-} from "../utils/models";
-import { updateDBData } from "../utils/updateDBData";
+} from "../utils/interfaces";
+import { updateDB } from "../utils/updateDB";
 import Add from "./Add";
 import Category from "./Category";
 
@@ -31,13 +31,13 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
 
     if (result !== -1) {
       let tempLynks = [...tempCats[result].lynks];
-      const newLynk: Lynk = {
+      const newLynk: LynkInterface = {
         link: link,
         title: title,
       };
       tempLynks.push(newLynk);
       tempCats[result].lynks = tempLynks;
-      const test = await updateDBData(tempCats, token);
+      const test = await updateDB(tempCats, token);
       if (test) {
         setUser({ ...user, categories: test });
       } else {
@@ -48,7 +48,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       }
       return;
     } else {
-      const newLynk: Lynk = {
+      const newLynk: LynkInterface = {
         link: link,
         title: title,
       };
@@ -57,7 +57,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
         lynks: [newLynk],
       };
       tempCats.push(newCat);
-      const test = await updateDBData(tempCats, token);
+      const test = await updateDB(tempCats, token);
       if (test) {
         console.log(test);
         setUser({ ...user, categories: test });
@@ -71,7 +71,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
     }
   };
 
-  const removeLynk = async (cat: string, lynk: Lynk) => {
+  const removeLynk = async (cat: string, lynk: LynkInterface) => {
     let tempCats = [...data];
     const result = tempCats.findIndex((temp) => temp.name === cat);
 
@@ -85,7 +85,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       } else {
         tempLynks.splice(removePos, 1);
         tempCats[result].lynks = tempLynks;
-        const test = await updateDBData(tempCats, token);
+        const test = await updateDB(tempCats, token);
         if (test) {
           setUser({ ...user, categories: test });
         } else {
@@ -106,7 +106,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       return;
     } else {
       tempCats.splice(result, 1);
-      const test = await updateDBData(tempCats, token);
+      const test = await updateDB(tempCats, token);
       if (test) {
         setUser({ ...user, categories: test });
       } else {

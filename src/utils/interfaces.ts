@@ -1,6 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 
-export interface Lynk {
+export interface LynkInterface {
   title: string;
   link: string;
   _id?: string;
@@ -9,7 +9,7 @@ export interface Lynk {
 export interface CategoryInterface {
   _id?: string;
   name: string;
-  lynks: Array<Lynk>;
+  lynks: Array<LynkInterface>;
 }
 
 export interface UserInterface {

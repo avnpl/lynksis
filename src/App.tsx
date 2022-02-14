@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import { Mains } from "./components/Mains";
 import { Navbar } from "./components/Navbar";
 import Register from "./components/Register";
-import { MyError, NewJWTPayload, UserInterface } from "./utils/models";
+import { MyError, NewJWTPayload, UserInterface } from "./utils/interfaces";
 
 function App() {
   const [user, setUser] = useState<UserInterface | null>(null);

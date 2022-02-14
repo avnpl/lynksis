@@ -1,10 +1,10 @@
 import React from "react";
-import { CategoryInterface, Lynk } from "../utils/models";
-import DisplayLynks from "./DisplayLynks";
+import { CategoryInterface, LynkInterface } from "../utils/interfaces";
+import Lynk from "./Lynk";
 
 interface Props {
   category: CategoryInterface;
-  removeLynk: (cat: string, lynk: Lynk) => Promise<void>;
+  removeLynk: (cat: string, lynk: LynkInterface) => Promise<void>;
   removeCat: (cat: string) => Promise<void>;
 }
 
@@ -26,7 +26,7 @@ export const Category: React.FC<Props> = ({
         </button>
         {category.lynks.map((lynk) => {
           return (
-            <DisplayLynks
+            <Lynk
               catName={category.name}
               lynk={lynk}
               removeLynk={removeLynk}
