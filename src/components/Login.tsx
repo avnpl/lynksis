@@ -49,8 +49,8 @@ const Login: React.FC<Props> = ({ loginUser }) => {
       </form>
       <div className='m-2 text-center'>
         <p>
-          Don't have an account?
-          <span className='ml-1'>
+          Don't have an account?{" "}
+          <span>
             <Link to='/register'>Register Now</Link>
           </span>
         </p>

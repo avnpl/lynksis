@@ -19,15 +19,16 @@ const Register: React.FC<Props> = ({ registerUser }) => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
+    <div className='w-72 sm:w-96 m-auto mt-20'>
+      <h2 className='text-3xl font-semibold mt-2 mb-3'>Register</h2>
+      <form className='flex flex-col mt-5 gap-y-2' onSubmit={handleRegister}>
         <label htmlFor='username'>Enter Username</label>
         <input
           type='text'
           id='username'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className='w-full'
         />
         <label htmlFor='email'>Enter Email</label>
         <input
@@ -35,6 +36,7 @@ const Register: React.FC<Props> = ({ registerUser }) => {
           id='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className='w-full'
         />
         <label htmlFor='password'>Enter Password</label>
         <input
@@ -42,10 +44,11 @@ const Register: React.FC<Props> = ({ registerUser }) => {
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className='w-full'
         />
-        <input type='submit' value='Register' />
+        <input className='input-button mt-3' type='submit' value='Register' />
       </form>
-      <div>
+      <div className='m-2 text-center'>
         <p>
           Already have an account?{" "}
           <span>
