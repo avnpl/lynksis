@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteButton from "../utils/DeleteButton";
 import { CategoryInterface, LynkInterface } from "../utils/interfaces";
 import Lynk from "./Lynk";
 
@@ -16,13 +17,13 @@ export const Category: React.FC<Props> = ({
   const displayCategory = (category: CategoryInterface) => {
     return (
       <div>
-        <h2>{category.name}</h2>
+        <h2 className='text-3xl font-semibold mt-2 mb-3'>{category.name}</h2>
         <button
           onClick={() => {
             removeCat(category.name);
           }}
         >
-          Delete
+          <DeleteButton />
         </button>
         {category.lynks.map((lynk) => {
           return (

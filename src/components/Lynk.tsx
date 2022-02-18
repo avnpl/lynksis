@@ -1,5 +1,7 @@
 import React from "react";
+import DeleteButton from "../utils/DeleteButton";
 import { LynkInterface } from "../utils/interfaces";
+import NewTabButton from "../utils/NewTabButton";
 
 interface Props {
   catName: string;
@@ -17,11 +19,14 @@ export const Lynk: React.FC<Props> = ({ catName, lynk, removeLynk }) => {
         onClick={() => {
           removeLynk(catName, lynk);
         }}
+        className=''
       >
-        Delete
+        <DeleteButton />
       </button>
       <a href={lynk.link} rel='noreferrer' target='_blank'>
-        <button>New Tab</button>
+        <button>
+          <NewTabButton />
+        </button>
       </a>
     </li>
   );
