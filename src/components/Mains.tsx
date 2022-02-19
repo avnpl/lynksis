@@ -119,7 +119,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
   };
 
   return (
-    <div>
+    <div className='space-y-4 mt-4'>
       {data.map((category) => {
         return (
           <Category

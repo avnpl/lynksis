@@ -3,7 +3,7 @@ import React from "react";
 const DeleteButton: React.FC = () => {
   return (
     <svg
-      className='stroke-current text-indigo-500 w-6 h-6'
+      className='w-8 h-8 p-1 border-2 hover:border-indigo-400 bg-gray-50 rounded-md stroke-current text-indigo-500 '
       fill='none'
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
