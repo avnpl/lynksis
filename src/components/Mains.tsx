@@ -119,18 +119,22 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
   };
 
   return (
-    <div className='space-y-4 mt-4'>
-      {data.map((category) => {
-        return (
-          <Category
-            category={category}
-            removeCat={removeCat}
-            removeLynk={removeLynk}
-            key={category._id}
-          />
-        );
-      })}
-      <Add addLynk={addLynk} />
+    <div className='mt-4 flex w-full'>
+      <div className='space-y-4 flex-grow'>
+        {data.map((category) => {
+          return (
+            <Category
+              category={category}
+              removeCat={removeCat}
+              removeLynk={removeLynk}
+              key={category._id}
+            />
+          );
+        })}
+      </div>
+      <div className='flex-none md:justify-self-end'>
+        <Add addLynk={addLynk} />
+      </div>
     </div>
   );
 };

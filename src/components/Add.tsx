@@ -25,10 +25,18 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
   };
 
   return (
-    <div>
-      <h2>Add Section</h2>
-      <form>
-        <label htmlFor='catName'>Category Name : </label>
+    <div className='w-60 m-auto'>
+      <h2 className='text-3xl font-semibold mt-2 mb-3'>
+        Add <span className='text-3xl text-indigo-500'>Lynks</span>
+      </h2>
+      <form
+        className='flex flex-col mt-5 gap-y-2'
+        onSubmit={(e) => {
+          e.preventDefault();
+          addLynkButtonPressed();
+        }}
+      >
+        <label htmlFor='catName'>Category Name</label>
         <input
           type='text'
           id='catName'
@@ -36,8 +44,9 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
           onChange={(e) => {
             setCatName(e.target.value);
           }}
+          className='w-full'
         />
-        <label htmlFor='title'>Enter Title : </label>
+        <label htmlFor='title'>Enter Title</label>
         <input
           type='text'
           id='title'
@@ -45,8 +54,9 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          className='w-full'
         />
-        <label htmlFor='link'>Enter Link : </label>
+        <label htmlFor='link'>Enter Link</label>
         <input
           type='text'
           id='link'
@@ -54,8 +64,9 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
           onChange={(e) => {
             setLink(e.target.value);
           }}
+          className='w-full'
         />
-        <input type='button' value='Add Lynk' onClick={addLynkButtonPressed} />
+        <input className='input-button mt-3' type='submit' value='Add Lynk' />
       </form>
     </div>
   );
