@@ -9,7 +9,7 @@ interface Props {
 export const Navbar: React.FC<Props> = ({ logoutUser, showLogout }) => {
   return (
     <>
-      <header className='flex items-center justify-between'>
+      <header className='flex items-center justify-between sticky top-0 bg-white'>
         <p className='text-4xl text-indigo-500 pt-3 pb-4 pr-4 font-bold underline'>
           Lynksis
         </p>
