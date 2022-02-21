@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { MyError } from "../utils/interfaces";
 
 interface Props {
   addLynk: (
@@ -11,18 +12,39 @@ interface Props {
       link: string;
     }
   ) => void;
+  setError: (value: React.SetStateAction<MyError | null>) => void;
 }
 
-export const Add: React.FC<Props> = ({ addLynk }) => {
-  const [name, setCatName] = useState("");
+export const Add: React.FC<Props> = ({ addLynk, setError }) => {
+  const [catName, setCatName] = useState("");
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
 
   const addLynkButtonPressed = () => {
-    addLynk(name, { link, title });
+    addLynk(catName, { link, title });
     setTitle("");
     setLink("");
   };
+
+  useEffect(() => {
+    if (title.length > 30) {
+      setError({
+        message: "Please keep title less than 30 characters",
+        type: "LongLynkTitleError",
+      });
+      setTitle(title.slice(0, 30));
+    }
+  }, [setError, title]);
+
+  useEffect(() => {
+    if (catName.length > 20) {
+      setError({
+        message: "Please keep title less than 20 characters",
+        type: "LongLynkTitleError",
+      });
+      setCatName(catName.slice(0, 20));
+    }
+  }, [setError, catName]);
 
   return (
     <div className='w-60 m-auto'>
@@ -40,7 +62,7 @@ export const Add: React.FC<Props> = ({ addLynk }) => {
         <input
           type='text'
           id='catName'
-          value={name}
+          value={catName}
           onChange={(e) => {
             setCatName(e.target.value);
           }}

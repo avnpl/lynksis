@@ -1,4 +1,5 @@
 import React from "react";
+import { checkInputs } from "../utils/checkInputs";
 import {
   CategoryInterface,
   LynkInterface,
@@ -24,6 +25,13 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
     cat: string,
     { title, link }: { title: string; link: string }
   ) => {
+    if (checkInputs(cat, title, link)) {
+      setError({
+        message: "Invalid Inputs",
+        type: "InvalidInputError",
+      });
+      return;
+    }
     let tempCats = [...data];
     const result = tempCats.findIndex(
       (temp) => temp.name.toLowerCase() === cat.toLowerCase()
@@ -59,7 +67,6 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       tempCats.push(newCat);
       const test = await updateDB(tempCats, token);
       if (test) {
-        console.log(test);
         setUser({ ...user, categories: test });
       } else {
         setError({
@@ -133,7 +140,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
         })}
       </div>
       <div className='flex-none md:justify-self-end'>
-        <Add addLynk={addLynk} />
+        <Add addLynk={addLynk} setError={setError} />
       </div>
     </div>
   );
