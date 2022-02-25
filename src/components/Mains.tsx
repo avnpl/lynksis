@@ -16,8 +16,6 @@ interface Props {
   setError: React.Dispatch<React.SetStateAction<MyError | null>>;
 }
 
-const token = localStorage.getItem("token") as string;
-
 export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
   const data = [...user.categories];
 
@@ -45,7 +43,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       };
       tempLynks.push(newLynk);
       tempCats[result].lynks = tempLynks;
-      const test = await updateDB(tempCats, token);
+      const test = await updateDB(tempCats);
       if (test) {
         setUser({ ...user, categories: test });
       } else {
@@ -65,7 +63,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
         lynks: [newLynk],
       };
       tempCats.push(newCat);
-      const test = await updateDB(tempCats, token);
+      const test = await updateDB(tempCats);
       if (test) {
         setUser({ ...user, categories: test });
       } else {
@@ -92,7 +90,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       } else {
         tempLynks.splice(removePos, 1);
         tempCats[result].lynks = tempLynks;
-        const test = await updateDB(tempCats, token);
+        const test = await updateDB(tempCats);
         if (test) {
           setUser({ ...user, categories: test });
         } else {
@@ -113,7 +111,7 @@ export const Mains: React.FC<Props> = ({ user, setUser, setError }) => {
       return;
     } else {
       tempCats.splice(result, 1);
-      const test = await updateDB(tempCats, token);
+      const test = await updateDB(tempCats);
       if (test) {
         setUser({ ...user, categories: test });
       } else {

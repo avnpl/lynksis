@@ -1,10 +1,8 @@
 import { CategoryInterface } from "./interfaces";
 
-export const updateDB = async (
-  categories: CategoryInterface[],
-  token: string
-) => {
+export const updateDB = async (categories: CategoryInterface[]) => {
   const url = `${process.env.REACT_APP_DEV_URL}/user`;
+  const token = localStorage.getItem("token") as string;
   try {
     const response = await fetch(url, {
       method: "PUT",
