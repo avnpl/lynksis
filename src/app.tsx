@@ -1,7 +1,18 @@
 import { Signal, batch, signal } from '@preact/signals'
 import { createContext } from 'preact'
+import {
+  Outlet,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom'
 import './app.css'
+import { Cats } from './components/category'
+import { ErrorComponent } from './components/error'
+import { Login } from './components/login'
 import { Navbar } from './components/navbar'
+import { Register, registerAction } from './components/register'
 import { Categories, Category, Opt, SERVERURL } from './utils'
 
 const createInitialState = () => {
@@ -57,13 +68,36 @@ const { categories, isLoggedIn, isLoading } = createInitialState()
 export const StateContext = createContext<MyContext | null>(null)
 
 export function App() {
-  const bruh = signal('')
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        path="/"
+        element={
+          <>
+            <Navbar />
+            <Outlet />
+          </>
+        }
+        errorElement={<ErrorComponent />}
+      >
+        <Route errorElement={<ErrorComponent />}>
+          <Route path="login" element={<Login />} />
+          <Route
+            path="register"
+            element={<Register />}
+            action={registerAction}
+          />
+          <Route path="cats" element={<Cats />} />
+        </Route>
+      </Route>
+    )
+  )
+
   return (
     <StateContext.Provider value={{ isLoggedIn, categories }}>
       <div className="app">{isLoading.value ? 'Loading' : 'Hello World'}</div>
-      {bruh}
       <br />
-      <Navbar />
+      <RouterProvider router={router} />
     </StateContext.Provider>
   )
 }
