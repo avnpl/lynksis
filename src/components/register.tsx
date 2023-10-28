@@ -1,6 +1,6 @@
 import { ActionFunction, Form, redirect, useActionData } from 'react-router-dom'
 import { z } from 'zod'
-import { SERVERURL } from '../utils'
+import { ResUser, SERVERURL } from '../utils'
 
 export const registerAction: ActionFunction = async ({ request }) => {
   const url = SERVERURL + '/register'
@@ -18,12 +18,14 @@ export const registerAction: ActionFunction = async ({ request }) => {
         password: body.get('password'),
       }),
     })
+    const resJSON = await res.json()
 
     if (res.status === 201) {
+      const temp = ResUser.parse(resJSON)
+      localStorage.setItem('token', temp.token)
       return redirect('/')
     } else {
-      const temp = await res.json()
-      return temp.message
+      return resJSON.message
     }
   } catch (err) {
     console.log(err)
