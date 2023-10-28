@@ -10,7 +10,7 @@ import {
 import './app.css'
 import { Cats } from './components/category'
 import { ErrorComponent } from './components/error'
-import { Login } from './components/login'
+import { Login, loginAction } from './components/login'
 import { Navbar } from './components/navbar'
 import { Register, registerAction } from './components/register'
 import { Categories, Category, Opt, SERVERURL } from './utils'
@@ -81,7 +81,7 @@ export function App() {
         errorElement={<ErrorComponent />}
       >
         <Route errorElement={<ErrorComponent />}>
-          <Route path="login" element={<Login />} />
+          <Route path="login" element={<Login />} action={loginAction} />
           <Route
             path="register"
             element={<Register />}

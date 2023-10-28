@@ -21,22 +21,18 @@ export const registerAction: ActionFunction = async ({ request }) => {
 
     if (res.status === 201) {
       return redirect('/')
-    } else if (res.status === 400) {
-      return { code: 400, message: 'Username or Email already in use' }
+    } else {
+      const temp = await res.json()
+      return temp.message
     }
   } catch (err) {
     console.log(err)
   }
-  return { code: 888, message: 'Unknown error has occurred' }
+  return 'Unknown error has occurred'
 }
 
 export const Register = () => {
-  const parsedActionRes = z
-    .object({
-      code: z.number(),
-      message: z.string(),
-    })
-    .safeParse(useActionData())
+  const parsedActionRes = z.string().safeParse(useActionData())
 
   return (
     <div>
@@ -46,7 +42,7 @@ export const Register = () => {
         <input type="password" name="password" placeholder="Enter Password" />
         <button type="submit">Submit</button>
       </Form>
-      {parsedActionRes.success ? <p>{parsedActionRes.data.message}</p> : null}
+      {parsedActionRes.success ? <p>{parsedActionRes.data}</p> : null}
     </div>
   )
 }
